@@ -215,10 +215,11 @@ const VIDEO_MODELS = [
   {
     id: 'grok-video-3',
     name: 'Grok Video 3',
-    desc: '标清视频', 
+    desc: '标清/15S高清', 
     supportedAspectRatios: ['9:16', '16:9', '2:3', '3:2', '1:1'],
     options: [
-      {s: '6', q: '标清'}
+      {s: '6', q: '标清'},
+      {s: '15', q: '高清'}
     ] 
   },
   { 
@@ -2408,8 +2409,12 @@ const App = () => {
             }
 
             if (isVeoModel || isGrokModel || isJimengModel || isKlingModel) {
+                let finalModelId = tModelId;
+                if (isGrokModel && modelDef?.options[tOptIdx]?.s === '15') {
+                    finalModelId = 'grok-video-3-15s';
+                }
                 const payload: any = {
-                    model: tModelId,
+                    model: finalModelId,
                     prompt: tPrompt,
                     images: tRefs.map((img: ReferenceImage) => img.data.startsWith('http') ? img.data : `data:${img.mimeType};base64,${img.data}`),
                     aspect_ratio: tRatio
@@ -2441,6 +2446,25 @@ const App = () => {
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}`, 'Accept': 'application/json' },
                     body: JSON.stringify(payload)
                 });
+
+                const data = await response.json();
+                if (!response.ok || (data.code && data.code !== 0)) throw new Error(data.error?.message || data.message || "视频生成接口错误");
+                
+                const tid = data.id || data.data?.id || data.data?.task_id || data.task_id || data.taskId;
+                if (!tid) throw new Error("No Task ID returned");
+
+                const updatedAsset: any = { ...placeholders.find(x => x.id === pId), status: 'queued', taskId: tid, modelId: finalModelId };
+                setGeneratedAssets(prev => prev.map(a => a.id === pId ? updatedAsset : a));
+                saveAssetToDB(updatedAsset);
+                
+                if (isKlingModel) {
+                     // Determine correct polling type for generic Kling
+                     const endpoint = tRefs.length > 0 ? 'image2video' : 'text2video';
+                     startKlingVideoPolling(tid, pId, startTime, endpoint);
+                } else {
+                    startVideoPolling(tid, pId, startTime, finalModelId);
+                }
+                return;
             } else {
                 const formData = new FormData();
                 formData.append('model', tModelId);
