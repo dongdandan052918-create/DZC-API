@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { 
   Settings2, Sparkles, Video, 
   Loader2, Download,
-  Bot, X, AlertCircle, Plus,
+  Bot, X, AlertCircle, Plus, Link, Monitor,
   RefreshCw, Edit, Maximize2, Check,
   Square, CheckSquare, Megaphone, ExternalLink,
   History, Copy, ClipboardCheck, Trash2,
@@ -3005,12 +3005,15 @@ const App = () => {
                  <button onClick={() => setActiveModal('price')} title="价格说明" className="w-9 h-9 md:w-10 md:h-10 bg-brand-green border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
                     <span className="text-xl font-bold text-white">¥</span>
                 </button>
-                <button onClick={() => setActiveModal('links')} title="联系客服" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
+                <button onClick={() => setActiveModal('support')} title="联系客服" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
                     <Headset className="w-5 h-5 md:w-6 md:h-6"/>
                 </button>
                 <a href="https://ai.danzhichen.com/console/log" target="_blank" title="使用日志" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
                   <History className="w-5 h-5 md:w-6 md:h-6" />
                 </a>
+                <button onClick={() => setActiveModal('links')} title="友情链接" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
+                    <Link className="w-5 h-5 md:w-6 md:h-6"/>
+                </button>
           </div>
           )}
         </header>
@@ -3878,12 +3881,15 @@ const App = () => {
                  <button onClick={() => setActiveModal('price')} title="价格说明" className="w-9 h-9 md:w-10 md:h-10 bg-brand-green border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
                     <span className="text-xl font-bold text-white">¥</span>
                 </button>
-                <button onClick={() => setActiveModal('links')} title="联系客服" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
+                <button onClick={() => setActiveModal('support')} title="联系客服" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
                     <Headset className="w-5 h-5 md:w-6 md:h-6"/>
                 </button>
                 <a href="https://ai.danzhichen.com/console/log" target="_blank" title="使用日志" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
                   <History className="w-5 h-5 md:w-6 md:h-6" />
                 </a>
+                <button onClick={() => setActiveModal('links')} title="友情链接" className="w-9 h-9 md:w-10 md:h-10 bg-white border border-black flex items-center justify-center brutalist-shadow-sm hover:translate-y-0.5 hover:shadow-none transition-all">
+                    <Link className="w-5 h-5 md:w-6 md:h-6"/>
+                </button>
           </div>
         </div>
 
@@ -4025,21 +4031,21 @@ const App = () => {
           <div className="w-[600px] bg-white border-2 border-black brutalist-shadow animate-in zoom-in-95 relative">
             <ModalHeader title="系统设置 / SETTINGS" icon={Settings2} onClose={() => setActiveModal(null)} />
             <div className="p-8 space-y-6">
-              
-              <div className="font-bold text-brand-red text-xl">
-                 API令牌分组：限时特价→企业级→default→优质gemini→逆向
+              <div className="font-bold text-brand-red text-base md:text-lg">
+                 API令牌分组优先级: 限时特价→sora-vip→default→优质gemini→逆向
               </div>
-
               <div className="space-y-2">
                 <div className="flex justify-between items-end">
-                    <a href={FIXED_BASE_URL} target="_blank" className="text-lg font-bold uppercase italic flex items-center gap-2 hover:underline decoration-2 underline-offset-4">
+                    <a href="https://www.vivaapi.cn" target="_blank" className="text-lg font-bold uppercase italic flex items-center gap-2 hover:underline decoration-2 underline-offset-4">
                         API令牌获取地址 <ExternalLink className="w-5 h-5"/>
+                    </a>
+                    <a href="https://my.feishu.cn/wiki/EPP6wHZEVi1Wi4kZac5cGWDTnx3" target="_blank" className="text-brand-blue font-bold flex items-center gap-1 hover:underline">
+                        使用教程 <BookOpen className="w-5 h-5"/>
                     </a>
                 </div>
                 <input 
                     type="text" 
                     value="https://ai.danzhichen.com" 
-                    readOnly 
                     className="w-full h-14 px-4 border border-black bg-slate-50 text-slate-600 text-lg font-normal font-mono outline-none" 
                 />
               </div>
@@ -4065,7 +4071,7 @@ const App = () => {
       )}
       
       {/* ... remaining modals kept identical ... */}
-      {activeModal === 'links' && (
+      {activeModal === 'support' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="w-[500px] bg-white border-2 border-black brutalist-shadow animate-in zoom-in-95 relative">
             <ModalHeader title="联系客服 / CONTACT SUPPORT" icon={Headset} onClose={() => setActiveModal(null)} />
@@ -4082,7 +4088,7 @@ const App = () => {
                             微信客服
                           </div>
                           <div className="bg-white border border-black px-4 py-3 text-2xl font-bold uppercase tracking-wider select-all cursor-text hover:bg-slate-50 transition-colors flex-1 text-center">
-                            DZC-api
+                            DCDS131419
                           </div>
                       </div>
                       <p className="text-[10px] font-normal text-slate-400 uppercase italic">Click text to copy / Long press</p>
@@ -4106,6 +4112,54 @@ const App = () => {
                       查看更多详情 <ExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform"/>
                   </a>
                </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeModal === 'links' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="w-[600px] bg-brand-cream border-2 border-black brutalist-shadow animate-in zoom-in-95 relative">
+            <ModalHeader title="友情链接 / FRIENDLY LINKS" icon={Link} onClose={() => setActiveModal(null)} />
+            <div className="p-6 space-y-4">
+              {/* API 主站 */}
+              <a href="https://ai.danzhichen.com" target="_blank" className="flex border-2 border-black group transition-transform hover:-translate-y-1 hover:translate-x-1">
+                <div className="w-24 bg-black flex items-center justify-center shrink-0">
+                  <Monitor className="w-10 h-10 text-brand-yellow" />
+                </div>
+                <div className="flex-1 bg-white p-4 relative">
+                  <ExternalLink className="absolute top-4 right-4 w-5 h-5 text-slate-300 group-hover:text-black transition-colors" />
+                  <h3 className="text-2xl font-bold mb-1">API 主站</h3>
+                  <p className="text-xs text-slate-600 mb-3">一站式模型聚合平台。用于创建API令牌(Key)，查询调用日志与额度消耗。</p>
+                  <span className="bg-black text-white px-2 py-0.5 text-[10px] font-mono">ai.danzhichen.com</span>
+                </div>
+              </a>
+
+              {/* DZC AI 助手 */}
+              <a href="https://d.danzhichen.com/" target="_blank" className="flex border-2 border-black group transition-transform hover:-translate-y-1 hover:translate-x-1">
+                <div className="w-24 bg-brand-yellow flex items-center justify-center shrink-0">
+                  <Bot className="w-10 h-10 text-black" />
+                </div>
+                <div className="flex-1 bg-white p-4 relative">
+                  <ExternalLink className="absolute top-4 right-4 w-5 h-5 text-slate-300 group-hover:text-black transition-colors" />
+                  <h3 className="text-2xl font-bold mb-1">DZC AI短视频创作平台</h3>
+                  <p className="text-xs text-slate-600 mb-3">故事题材，漫剧风格，创作剧本，分镜设定等专属分站。</p>
+                  <span className="bg-black text-white px-2 py-0.5 text-[10px] font-mono">d.danzhichen.com/</span>
+                </div>
+              </a>
+
+              {/* DZC AI漫剧创作平台 */}
+              <a href="https://m.danzhichen.com/" target="_blank" className="flex border-2 border-black group transition-transform hover:-translate-y-1 hover:translate-x-1">
+                <div className="w-24 bg-brand-yellow flex items-center justify-center shrink-0">
+                  <Bot className="w-10 h-10 text-black" />
+                </div>
+                <div className="flex-1 bg-white p-4 relative">
+                  <ExternalLink className="absolute top-4 right-4 w-5 h-5 text-slate-300 group-hover:text-black transition-colors" />
+                  <h3 className="text-2xl font-bold mb-1">DZC AI漫剧创作平台</h3>
+                  <p className="text-xs text-slate-600 mb-3">故事题材，漫剧风格，创作剧本，分镜设定等专属分站。</p>
+                  <span className="bg-black text-white px-2 py-0.5 text-[10px] font-mono">m.danzhichen.com/</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
